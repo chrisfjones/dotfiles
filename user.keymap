@@ -1,0 +1,24 @@
+;; ln -s user.keymap ~/Library/Application Support/LightTable/settings/user.keymap
+{:+ {:app {"pmeta-t" [:workspace.show]
+           "pmeta-alt-c" [:toggle-console]
+           "pmeta-shift-c" [:clear-console]}
+     ;:editor.keys.hinting.active {"enter" [:passthrough]}
+     :editor {; editor stuff
+              "pmeta-shift-e" [:clear-inline-results]
+              "pmeta-shift-d" [:editor.disconnect-clients]
+              "ctrl-c" [:eval.cancel-all!]
+
+              ; paredit
+              "alt-enter" [(:paredit.select.parent "(")
+                           :eval-editor-form
+                           :paredit.select.clear]
+              "shift-alt-s" [(:paredit.select.parent "(")]
+
+              ; watches
+              "alt-w" [:editor.watch.watch-selection]
+              "alt-shift-w" [:editor.watch.unwatch]
+
+              ; custom
+              ;"pmeta-shift-t" [(:eval.custom "(run-tests)" {:result-type :statusbar :ns "my.test.ns"})]
+              "pmeta-shift-r" [(:eval.custom "(reset! mosaic-processes {})" {:result-type :statusbar :ns "mosaic-service.mosaic-process"})]
+              }}}
