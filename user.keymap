@@ -8,17 +8,40 @@
               "pmeta-shift-d" [:editor.disconnect-clients]
               "ctrl-c" [:eval.cancel-all!]
 
+              "cmd-/" [:toggle-comment-selection
+                       :editor.line-down]
+              "cmd-d" [:editor.sublime.duplicateLine]
+              "cmd-y" [:editor.delete-line]
+              "cmd-shift-up" [:editor.sublime.swapLineUp]
+              "cmd-shift-down" [:editor.sublime.swapLineDown]
+
+              ; multi-cursor
+              "cmd-m" [:editor.sublime.selectNextOccurrence]
+              "cmd-shift-m" [:editor.sublime.singleSelectionTop]
+              "cmd-shift-l" [:editor.sublime.splitSelectionByLine]
+
               ; paredit
               "alt-enter" [(:paredit.select.parent "(")
                            :eval-editor-form
                            :paredit.select.clear]
-              "shift-alt-s" [(:paredit.select.parent "(")]
+              "shift-alt-s" [:paredit.select.parent]
+              "cmd-shift-9" [:paredit.grow.left]
+              "cmd-shift-0" [:paredit.grow.right]
+              "cmd-shift-." [:paredit.shrink.left]
+              "cmd-shift-," [:paredit.shrink.right]
 
               ; watches
               "alt-w" [:editor.watch.watch-selection]
               "alt-shift-w" [:editor.watch.unwatch]
 
-              ; custom
-              ;"pmeta-shift-t" [(:eval.custom "(run-tests)" {:result-type :statusbar :ns "my.test.ns"})]
-              "pmeta-shift-r" [(:eval.custom "(reset! mosaic-processes {})" {:result-type :statusbar :ns "mosaic-service.mosaic-process"})]
+              "pmeta-shift-r" [(:eval.custom "(livestock.order.service.server/dev-restart)" {:result-type :statusbar})]
+              "pmeta-shift-y" [(:eval.custom "(setup-test-state!)" {:result-type :statusbar :ns "livestock.order.client.repl"})]
+              "pmeta-shift-t" [(:eval.custom "(debug-state)" {:result-type :statusbar :ns "livestock.order.client.repl"})]
               }}}
+
+              ; custom
+;;               "pmeta-shift-r" [(:eval.custom "(println \"eval.custom - ns:\" (.getName (identity *ns*)))
+;;                                               (condp (fn [n1 n2] .startsWith (name n2) (name n1)) (.getName (identity *ns*))
+;;                                                 'livestock.order.service (livestock.order.service.server/dev-restart)
+;;                                                 'livestock.order.client (livestock.order.client.repl/setup-test-state!)
+;;                                                 :not-found)" {:result-type :statusbar})]
